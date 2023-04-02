@@ -25,21 +25,21 @@ const userController = {
 
   //DELETE A USER
   deleteUser: async (req, res) => {
-    const user = await User.findById(req.params.id)
     const defaultAva = "335394526_475480261343072_8119553063540778048_n_jopxzq.jpg"
-    const userAvaID = user.avatar.split(".")[0]
     try {
+      const user = await User.findById(req.params.id)
+      const userAvaID = user.avatar.split(".")[0]
       if(user.avatar === defaultAva){
         await User.findByIdAndDelete(req.params.id);
         return res.status(200).json("User deleted");
       }
-      else{
+      else if(user.avatar !== defaultAva){
         cloudinary.uploader.destroy(`userManagement/${userAvaID}`)
         await User.findByIdAndDelete(req.params.id);
         return res.status(200).json("User deleted");
       }
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   },
 
