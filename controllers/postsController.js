@@ -12,9 +12,8 @@ const postsController = {
 
   getPostById: async (req, res) => {
     try {
-      const user = await User.findById(req.params.id);
-      const { password, ...others } = user._doc;
-      res.status(200).json(others);
+      const post = await posts.findById(req.params.id);
+      res.status(200).json(post._doc);
     } catch (err) {
       res.status(500).json(err);
     }
