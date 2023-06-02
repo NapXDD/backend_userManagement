@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const authRoute = require("./routes/auth.js");
 const userRoute = require("./routes/user.js");
+const postsRoute = require("./routes/posts.js");
 const uploadRoute = require("./routes/upload.js")
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(express.json());
 //ROUTES
 app.use("/v1/auth", authRoute);
 app.use("/v1/user", userRoute);
+app.use("/v1/posts", postsRoute);
 app.use("/upload", uploadRoute);
 
 app.listen(process.env.PORT, () => {

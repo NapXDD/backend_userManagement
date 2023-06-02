@@ -1,9 +1,10 @@
-const posts = require("../models/Posts");
+const Posts = require("../models/Posts");
 
 const postsController = {
   getAllPosts: async (req, res) => {
     try {
-      const posts = await posts.find();
+      const posts = await Posts.find();
+      console.log("posts", posts);
       res.status(200).json(posts);
     } catch (err) {
       res.status(200).json(err);
@@ -12,7 +13,7 @@ const postsController = {
 
   getPostById: async (req, res) => {
     try {
-      const post = await posts.findById(req.params.id);
+      const post = await Posts.findById(req.params.id);
       res.status(200).json(post._doc);
     } catch (err) {
       res.status(500).json(err);
@@ -22,7 +23,7 @@ const postsController = {
   addPost: async (req, res) => {
     try {
       //Create new user
-      const newPost = await new posts({
+      const newPost = await new Posts({
         title: req.body.title,
         content: req.body.content,
         author: req.body.author,
@@ -33,14 +34,13 @@ const postsController = {
       const post = await newPost.save();
       return res.status(200).json(post);
     } catch (err) {
-      console.log(err);
       return res.status(500).json(err);
     }
   },
 
   deletePost: async (req, res) => {
     try {
-      const post = await posts.findById(req.params.id);
+      const post = await Posts.findById(req.params.id);
       await post.findByIdAndDelete(req.params.id);
       return res.status(200).json("User deleted");
     } catch (err) {
@@ -51,7 +51,7 @@ const postsController = {
   updatePost: async (req, res) => {
     try {
       const content = req.body.content;
-      await posts.findByIdAndUpdate(req.params.id, content);
+      await Posts.findByIdAndUpdate(req.params.id, content);
       return res.status(200).json("User password updated");
     } catch (err) {
       return res.status(500).json(err);
