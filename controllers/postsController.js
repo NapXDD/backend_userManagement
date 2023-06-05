@@ -50,9 +50,8 @@ const postsController = {
 
   updatePost: async (req, res) => {
     try {
-      const content = req.body.content;
-      await Posts.findByIdAndUpdate(req.params.id, content);
-      return res.status(200).json("User password updated");
+      await Posts.findByIdAndUpdate(req.params.id, req.body);
+      return res.status(200).json("Post updated");
     } catch (err) {
       return res.status(500).json(err);
     }

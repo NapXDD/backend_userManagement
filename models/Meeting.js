@@ -10,7 +10,11 @@ const meetingSchema = mongoose.Schema({
     type: Date,
     require: true,
   },
-  requestBy: {
+  requesterName: {
+    type: String,
+    require: true,
+  },
+  requesterID: {
     type: String,
     require: true,
   },
