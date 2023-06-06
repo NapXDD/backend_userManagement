@@ -53,7 +53,7 @@ const meetingController = {
   //UPDATE A USER
   updateMeeting: async (req, res) => {
     try {
-      await meeting.findByIdAndUpdate(req.params.id, req.body);
+      await Meeting.findByIdAndUpdate(req.body.id, req.body.approveStatus);
       res.status(200).json("User updated");
     } catch (err) {
       res.status(500).json(err);
