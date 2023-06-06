@@ -1,12 +1,12 @@
-const meeting = require("../models/Meeting");
+const Meeting = require("../models/Meeting");
 const bcrypt = require("bcrypt");
 
 const meetingController = {
   //GET ALL USER
   getAllMeeting: async (req, res) => {
     try {
-      const meet = await meeting.find();
-      res.status(200).json(user);
+      const meet = await Meeting.find();
+      res.status(200).json(meet);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -24,18 +24,36 @@ const meetingController = {
   //DELETE A USER
   deleteMeeting: async (req, res) => {
     try {
-        const post = await posts.findById(req.params.id);
-        await post.findByIdAndDelete(req.params.id);
-        return res.status(200).json("Meeting deleted");
-      } catch (err) {
-        return res.status(500).json(err);
-      }
+      const meet = await meeting.findById(req.params.id);
+      await meet.findByIdAndDelete(req.params.id);
+      return res.status(200).json("Meeting deleted");
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  },
+
+  //CREATE MEETING
+  addMeeting: async (req, res) => {
+    try {
+      //Create new user
+      const newMeeting = await new Meeting({
+        roomName: req.body.roomName,
+        dateTime: req.body.time,
+        requesterName: req.body.requesterName,
+        requesterID: req.body.requesterID,
+      });
+      const meeting = await newMeeting.save();
+      return res.status(200).json(meeting);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json(err);
+    }
   },
 
   //UPDATE A USER
   updateMeeting: async (req, res) => {
     try {
-      await User.findByIdAndUpdate(req.params.id, req.body);
+      await Meeting.findByIdAndUpdate(req.body.id, req.body.approveStatus);
       res.status(200).json("User updated");
     } catch (err) {
       res.status(500).json(err);
