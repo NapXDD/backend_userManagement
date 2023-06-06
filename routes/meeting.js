@@ -20,8 +20,8 @@ router.delete(
   meetingController.deleteMeeting
 );
 
-//UPDATE USER
-router.put("/:id/update", verifyTokenAndUser, meetingController.updateMeeting);
+//UPDATE MEETING
+router.put("/:id/update", verifyToken, meetingController.updateMeeting);
 
 //CREATE MEETING
 router.post("/createMeeting", verifyToken, meetingController.addMeeting);

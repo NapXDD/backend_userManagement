@@ -24,8 +24,7 @@ const meetingController = {
   //DELETE A USER
   deleteMeeting: async (req, res) => {
     try {
-      const meet = await meeting.findById(req.params.id);
-      await meet.findByIdAndDelete(req.params.id);
+      await Meeting.findByIdAndDelete(req.params.id);
       return res.status(200).json("Meeting deleted");
     } catch (err) {
       return res.status(500).json(err);
@@ -53,7 +52,7 @@ const meetingController = {
   //UPDATE A USER
   updateMeeting: async (req, res) => {
     try {
-      await Meeting.findByIdAndUpdate(req.body.id, req.body.approveStatus);
+      await Meeting.findByIdAndUpdate(req.params.id, req.body);
       res.status(200).json("User updated");
     } catch (err) {
       res.status(500).json(err);
