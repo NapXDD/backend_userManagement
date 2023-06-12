@@ -7,7 +7,7 @@ const meetingSchema = mongoose.Schema({
     require: true,
   },
   dateTime: {
-    type: Date,
+    type: String,
     require: true,
   },
   requesterName: {

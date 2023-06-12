@@ -12,9 +12,10 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  allowedFormats: ["jpg", "png", "pdf"],
+  allowedFormats: ["jpg", "png", "pdf", "doc", "docx"],
   params: {
     folder: "userManagement",
+    resource_type: "auto",
   },
 });
 

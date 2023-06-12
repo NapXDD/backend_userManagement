@@ -15,12 +15,15 @@ const docsSchema = mongoose.Schema({
   submitDate: {
     type: Date,
   },
-  approveStatus: {
-    type: Boolean,
-    require: true,
-    default: false,
-  },
   uploadBy: {
+    type: String,
+    require: true,
+  },
+  uploaderID: {
+    type: String,
+    require: true,
+  },
+  filePath: {
     type: String,
     require: true,
   },

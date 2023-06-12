@@ -8,6 +8,7 @@ const authRoute = require("./routes/auth.js");
 const userRoute = require("./routes/user.js");
 const postsRoute = require("./routes/posts.js");
 const meetingRoute = require("./routes/meeting.js");
+const docsRoute = require("./routes/documents.js");
 const uploadRoute = require("./routes/upload.js");
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/v1/auth", authRoute);
 app.use("/v1/user", userRoute);
 app.use("/v1/posts", postsRoute);
 app.use("/v1/meeting", meetingRoute);
+app.use("/v1/docs", docsRoute);
 app.use("/upload", uploadRoute);
 
 app.listen(process.env.PORT, () => {
