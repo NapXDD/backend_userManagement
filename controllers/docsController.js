@@ -25,12 +25,12 @@ const docsController = {
     try {
       //Create new user
       const newPost = await new Docs({
-        docName: '',
-        description: '',
-        submitDate: '',
-        uploadBy: '',
-        uploaderID: '',
-        filePath: '',
+        docName: "",
+        description: "",
+        submitDate: "",
+        uploadBy: "",
+        uploaderID: "",
+        filePath: "",
       });
 
       const post = await newPost.save();
@@ -51,8 +51,8 @@ const docsController = {
   },
 
   downloadDoc: async (req, res) => {
-    const url =`cloudinaryURL/${req.body.filePath}`
-    const destinationPath = req.body.destinationPath
+    const url = `cloudinaryURL/${req.body.filePath}`;
+    const destinationPath = req.body.destinationPath;
     try {
       const response = await axios.get(url, {
         responseType: "arraybuffer",

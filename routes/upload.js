@@ -27,7 +27,7 @@ router.post(
   verifyToken,
   uploadCloud.single("pdfFile"),
   (req, res, next) => {
-    console.log(req.file);
+    console.log(req.file.path);
     if (!req.file) {
       next(new Error("No file uploaded!"));
       return;
@@ -42,7 +42,7 @@ router.post(
   verifyToken,
   uploadCloud.single("docFile"),
   (req, res, next) => {
-    console.log(req.file);
+    console.log(req.file.path);
     if (!req.file) {
       next(new Error("No file uploaded!"));
       return;
@@ -57,7 +57,8 @@ router.post(
   verifyToken,
   uploadCloud.single("docxFile"),
   (req, res, next) => {
-    console.log(req.file);
+    console.log("lmao");
+    console.log(req.file.path);
     if (!req.file) {
       next(new Error("No file uploaded!"));
       return;

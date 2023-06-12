@@ -13,7 +13,7 @@ const docsSchema = mongoose.Schema({
     require: true,
   },
   submitDate: {
-    type: Date,
+    type: String,
   },
   uploadBy: {
     type: String,
