@@ -4,7 +4,12 @@ const {
   verifyTokenAndUserAuthorization,
   verifyTokenAndAdmin,
 } = require("../controllers/verifyToken");
-const { uploadCloud } = require("../middleware/uploader.js");
+const {
+  uploadDocsCloud,
+  uploadDoc,
+  uploadDocx,
+  uploadPdf,
+} = require("../middleware/uploader.js");
 
 const router = require("express").Router();
 //GET ALL DOCS
@@ -17,7 +22,7 @@ router.get("/:id", verifyToken, docsController.getDocById);
 router.post(
   "/addPDF",
   verifyTokenAndAdmin,
-  uploadCloud.single("pdf"),
+  uploadPdf.single("file"),
   docsController.addDoc
 );
 
@@ -25,7 +30,7 @@ router.post(
 router.post(
   "/addDOC",
   verifyTokenAndAdmin,
-  uploadCloud.single("doc"),
+  uploadDoc.single("file"),
   docsController.addDoc
 );
 
@@ -33,7 +38,7 @@ router.post(
 router.post(
   "/addDOCX",
   verifyTokenAndAdmin,
-  uploadCloud.single("docx"),
+  uploadDocx.single("file"),
   docsController.addDoc
 );
 

@@ -3,8 +3,15 @@ const {
   verifyToken,
   verifyTokenAndUser,
   verifyTokenAndUserAuthorization,
+  verifyTokenAndAdmin,
 } = require("../controllers/verifyToken");
-const { uploadCloud } = require("../middleware/uploader.js");
+const {
+  uploadCloud,
+  uploadDocsCloud,
+  uploadDocx,
+  uploadPdf,
+  uploadDoc,
+} = require("../middleware/uploader.js");
 
 //UPLOAD IMAGE
 router.post(
@@ -12,12 +19,11 @@ router.post(
   verifyToken,
   uploadCloud.single("image"),
   (req, res, next) => {
-    console.log(req.image);
+
     if (!req.file) {
       next(new Error("No file uploaded!"));
       return;
     }
-
     res.json({ secure_url: req.file.path });
   }
 );
@@ -25,7 +31,7 @@ router.post(
 router.post(
   "/cloudinary-upload-pdf",
   verifyToken,
-  uploadCloud.single("pdfFile"),
+  uploadPdf.single("file"),
   (req, res, next) => {
     console.log(req.file.path);
     if (!req.file) {
@@ -40,7 +46,7 @@ router.post(
 router.post(
   "/cloudinary-upload-doc",
   verifyToken,
-  uploadCloud.single("docFile"),
+  uploadDoc.single("file"),
   (req, res, next) => {
     console.log(req.file.path);
     if (!req.file) {
@@ -54,11 +60,8 @@ router.post(
 
 router.post(
   "/cloudinary-upload-docx",
-  verifyToken,
-  uploadCloud.single("docxFile"),
+  uploadDocx.single("file"),
   (req, res, next) => {
-    console.log("lmao");
-    console.log(req.file.path);
     if (!req.file) {
       next(new Error("No file uploaded!"));
       return;

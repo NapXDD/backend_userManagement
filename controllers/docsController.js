@@ -1,6 +1,4 @@
 const Docs = require("../models/Documents");
-const axios = require("axios");
-const fs = require("fs");
 
 const docsController = {
   getAllDocs: async (req, res) => {
@@ -24,17 +22,18 @@ const docsController = {
   addDoc: async (req, res) => {
     try {
       //Create new user
-      const newPost = await new Docs({
-        docName: "",
-        description: "",
-        submitDate: "",
-        uploadBy: "",
-        uploaderID: "",
-        filePath: "",
+      const newDoc = await new Docs({
+        docName: req.body.docName,
+        description: req.body.description,
+        submitDate: req.body.submitDate,
+        uploadBy: req.body.uploadBy,
+        uploaderID: req.body.uploaderID,
+        filePath: req.file.path,
       });
 
-      const post = await newPost.save();
-      return res.status(200).json(post);
+      const doc = await newDoc.save();
+
+      return res.status(200).json(doc);
     } catch (err) {
       return res.status(500).json(err);
     }
@@ -45,20 +44,6 @@ const docsController = {
       const post = await Docs.findById(req.params.id);
       await post.findByIdAndDelete(req.params.id);
       return res.status(200).json("User deleted");
-    } catch (err) {
-      return res.status(500).json(err);
-    }
-  },
-
-  downloadDoc: async (req, res) => {
-    const url = `cloudinaryURL/${req.body.filePath}`;
-    const destinationPath = req.body.destinationPath;
-    try {
-      const response = await axios.get(url, {
-        responseType: "arraybuffer",
-      });
-
-      fs.writeFileSync(destinationPath, response.data);
     } catch (err) {
       return res.status(500).json(err);
     }
