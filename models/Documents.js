@@ -5,7 +5,6 @@ const docsSchema = mongoose.Schema({
     type: String,
     max: 60,
     require: true,
-    unique: true,
   },
   description: {
     type: String,

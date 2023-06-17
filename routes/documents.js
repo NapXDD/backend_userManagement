@@ -45,7 +45,7 @@ router.post(
 //DELETE USER
 router.delete(
   "/:id/delete",
-  verifyTokenAndUserAuthorization,
+  verifyTokenAndAdmin,
   docsController.deleteDoc
 );
 

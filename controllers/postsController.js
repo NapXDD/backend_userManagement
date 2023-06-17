@@ -39,9 +39,8 @@ const postsController = {
 
   deletePost: async (req, res) => {
     try {
-      const post = await Posts.findById(req.params.id);
-      await post.findByIdAndDelete(req.params.id);
-      return res.status(200).json("User deleted");
+      await Posts.findByIdAndDelete(req.params.id);
+      return res.status(200).json("Post deleted");
     } catch (err) {
       return res.status(500).json(err);
     }

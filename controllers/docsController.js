@@ -1,4 +1,5 @@
 const Docs = require("../models/Documents");
+const cloudinary = require("cloudinary").v2;
 
 const docsController = {
   getAllDocs: async (req, res) => {
@@ -41,9 +42,12 @@ const docsController = {
 
   deleteDoc: async (req, res) => {
     try {
-      const post = await Docs.findById(req.params.id);
-      await post.findByIdAndDelete(req.params.id);
-      return res.status(200).json("User deleted");
+      const doc = await Docs.findById(req.params.id);
+      const filePath = doc.filePath;
+      const fileName = `${filePath.split("/")[7]}/${filePath.split("/")[8]}`;
+      await Docs.findByIdAndDelete(req.params.id);
+      cloudinary.uploader.destroy(fileName, { resource_type: "raw" });
+      return res.status(200).json("Doc deleted");
     } catch (err) {
       return res.status(500).json(err);
     }
